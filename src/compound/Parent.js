@@ -2,28 +2,28 @@ import React from "react";
 
 const ParentContext = React.createContext({});
 
-function useParentData() {
-  const parentContext = React.useContext(ParentContext);
-  React.useEffect(() => {
-    console.log("parentContext", parentContext);
-  }, [parentContext]);
-  return parentContext;
+function parentReducer(state, action) {
+  const { a, b, type } = action;
+  switch (type) {
+    case "CLICK":
+      return { ...state, a, b };
+    default:
+      return state;
+  }
 }
 
 function Parent({ children }) {
-  const [data, setData] = React.useState({});
-
-  function onClick() {
-    alert(1);
-    setData({ a: "a", b: "b" });
-  }
+  const [parentState, dispatch] = React.useReducer(parentReducer, {
+    a: "",
+    b: ""
+  });
 
   return (
-    <ParentContext.Provider value={{ onClick, data }}>
+    <ParentContext.Provider value={{ ...parentState, dispatch }}>
       <div style={{ border: "2px solid red", margin: 20 }}>{children}</div>
     </ParentContext.Provider>
   );
 }
 
 export default Parent;
-export { ParentContext, useParentData };
+export { ParentContext };

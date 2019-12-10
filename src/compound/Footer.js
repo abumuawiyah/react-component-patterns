@@ -1,12 +1,15 @@
 import React from "react";
-import { ParentContext, useParentData } from "./Parent";
+import { ParentContext } from "./Parent";
 
 function Footer({ children }) {
   const parentContext = React.useContext(ParentContext);
-  const { data } = useParentData();
-  console.log("ssss", data);
+  const { dispatch } = parentContext;
 
-  return <div onClick={parentContext.onClick}>{children}</div>;
+  function handleClick() {
+    dispatch({ type: "CLICK", a: "A", b: "B" });
+  }
+
+  return <div onClick={handleClick}>{children}</div>;
 }
 
 export default Footer;

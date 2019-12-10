@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import Parent, { Body, Header, Footer } from "./compound";
-import { useParentData, ParentContext } from "./compound/Parent";
+import useMyState from "./customHooks/useMyState";
 
 function ImplCompound({ children }) {
-  const { data } = useParentData();
-  const parentContext = useContext(ParentContext);
-  console.log("s", data, parentContext);
+  const [state] = useMyState();
+  console.log("my state", state);
   return (
     <Parent>
       <Header>Header</Header>
