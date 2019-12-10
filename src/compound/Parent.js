@@ -4,7 +4,9 @@ const ParentContext = React.createContext({});
 
 function useParentData() {
   const parentContext = React.useContext(ParentContext);
-
+  React.useEffect(() => {
+    console.log("parentContext", parentContext);
+  }, [parentContext]);
   return parentContext;
 }
 
